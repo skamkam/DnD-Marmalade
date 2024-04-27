@@ -1,0 +1,197 @@
+---
+title: "Marmalade Lysiantha"
+output:
+  html_document:
+    css: "style.css"
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scoll: false
+---
+
+\setlength\parindent{25pt}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+```
+
+
+# Character Sheet
+
+```{r} 
+# build the character sheet dataframe and display it
+labels <- c("Stat", "Modifier")
+STR <- c(9, "-1")
+DEX <- c(13, "+1")
+CON <- c(13, "+1")
+INT <- c(12, "+1")
+WIS <- c(11, "+0")
+CHA <- c(19, "+4")
+
+charsheet <- data.frame(labels, STR, DEX, CON, INT, WIS, CHA) %>% 
+  rename(" " = labels)
+
+kable(charsheet) %>% 
+  kable_styling() %>% 
+  column_spec(1, bold=T)
+```
+
+
+<hr class="new">
+
+**Level**: 2
+
+**Hit points**: 16
+
+- Number of hit dice: 1 d8 per bard level
+
+**Proficiency bonus**: +2
+
+**Armor class**: 12
+
+<hr class="new">
+
+## Skills
+- Performance [CHA]
+- Persuasion [CHA]
+- Deception [CHA]
+- Sleight of Hand [DEX]
+- Acrobatics [DEX]
+- Perception [WIS]
+- Insight [WIS]
+
+## Proficiencies
+- **Armor**: Light armor
+- **Weapons**: Simple weapons, hand crossbows, longswords, rapiers, shortswords
+- **Tools**: Cello, mandolin, harmonica, spoons; disguise kit
+- **Saving Throws**: Dexterity, Charisma
+
+## Elf Traits
+- **Speed**: 30 feet base walking speed
+- **Size**: 5'6" tall, 130 lbs; size Medium
+- **Darkvision**: See in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.
+- **Fey Ancestry**: You have advantage on saving throws against being charmed, and magic can't put you to sleep.
+- **Languages**: Fluent in Common, Elvish, Dwarvish
+
+## Entertainer
+**Routines**: Instrumentalist, singer, storyteller
+
+You can always find a place to perform, usually in an inn or tavern but possibly with a circus, at a theater, or even in a noble's court. At such a place, you receive free lodging and food of a modest or comfortable standard (depending on the quality of the establishment), as long as you perform each night. In addition, your performance makes you something of a local figure. When strangers recognize you in a town where you have performed, they typically take a liking to you.
+
+<hr class="new">
+
+# Current Equipment
+
+## Weapons/Armor
+
+```{r}
+
+armor <- data.frame(name="Leather armor", damage="N/A", weight="10 lb.",
+                     prop="11 + DEX modifier", type="Light armor")
+
+longsword <- data.frame(name="Longsword", damage="1d8 slashing", weight="3 lb.", prop="Versatile (1d10)",
+                     type="Martial melee weapon")
+
+dagger <- data.frame(name="Dagger", damage="1d4 piercing", weight="1 lb.", 
+              prop="Finesse, light, thrown (20/60)", type="Simple melee weapon")
+
+
+weaparmor <- rbind(armor, longsword, dagger) %>% 
+  rename(Name=name, Damage=damage, Weight=weight, Properties=prop, Type=type)
+
+kable(weaparmor) %>% 
+  kable_styling()
+```
+
+### Weapon Properties
+
+<details><summary>Finesse</summary>
+When making an attack with a finesse weapon, you use your choice of your Strength or Dexterity modifier for the attack and damage rolls. You must use the same modifier for both rolls.</details>
+
+<details><summary>Light</summary>
+A light weapon is small and easy to handle, making it ideal for use when fighting with two weapons.</details>
+
+<details><summary>Thrown</summary>
+If a weapon has the thrown property, you can throw the weapon to make a ranged attack. If the weapon is a melee weapon, you use the same ability modifier for that attack roll and damage roll that you would use for a melee attack with the weapon.</details>
+
+<details><summary>Versatile</summary>
+This weapon can be used with one or two hands. A damage value in parentheses appears with the property—the damage when the weapon is used with two hands to make a melee attack.</details>
+
+<hr class="new">
+
+## Belongings
+
+### Travel: Entertainer's Pack
+
+- backpack
+- bedroll
+- 2 costumes
+- 5 candles
+- 5 days rations
+- waterskin
+- disguise kit
+
+### Personal (excluding equipped)
+
+- 15 gp
+- mandolin
+- trinket from an admirer - a silk handkerchief
+
+<hr class="new">
+
+
+# Spellcasting
+
+**Spell save DC** 8 + proficiency bonus + CHA
+
+**Spell attack modifier**: proficiency bonus + CHA
+
+<details><summary>Ritual Casting</summary>
+You can cast any bard spell you know as a ritual if that spell has the ritual tag.</details>
+
+
+
+<details><summary>Spellcasting Focus</summary>
+You can use a musical instrument (found in chapter 5) as a spellcasting focus for your bard spells.</details>
+
+<details><summary>Bardic Inspiration</summary>
+
+You can inspire others through stirring words or music. To do so, you use a bonus action on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one Bardic Inspiration die, a d6.
+
+Once within the next 10 minutes, the creature can roll the die and add the number rolled to one ability check, attack roll, or saving throw it makes. The creature can wait until after it rolls the d20 before deciding to use the Bardic Inspiration die, but must decide before the DM says whether the roll succeeds or fails. Once the Bardic Inspiration die is rolled, it is lost. A creature can have only one Bardic Inspiration die at a time.
+
+You can use this feature a number of times equal to your Charisma modifier (a minimum of once). You regain any expended uses when you finish a long rest.
+
+Your Bardic Inspiration die changes when you reach certain levels in this class. The die becomes a d8 at 5th level, a d10 at 10th level, and a d12 at 15th level.</details>
+
+
+<details><summary>Jack of All Trades</summary>
+
+Starting at 2nd level, you can add half your proficiency bonus, rounded down, to any ability check you make that doesn't already include your proficiency bonus.</details>
+
+
+<details><summary>Song of Rest</summary>
+
+Beginning at 2nd level, you can use soothing music or oration to help revitalize your wounded allies during a short rest. If you or any friendly creatures who can hear your performance regain hit points at the end of the short rest by spending one or more Hit Dice, each of those creatures regains an extra 1d6 hit points.
+
+The extra Hit Points increase when you reach certain levels in this class: to 1d8 at 9th level, to 1d10 at 13th level, and to 1d12 at 17th level.</details>
+
+<details><summary>Magical Inspiration (Optional)</summary>
+
+At 2nd level, if a creature has a Bardic Inspiration die from you and casts a spell that restores hit points or deals damage, the creature can roll that die and choose a target affected by the spell. Add the number rolled as a bonus to the hit points regained or the damage dealt. The Bardic Inspiration die is then lost.</details>
+
+
+<hr class="new">
+
+# Background
+
+**Race**: [Half-Elf](http://dnd5e.wikidot.com/lineage:half-elf)
+
+**Class**: [Bard](http://dnd5e.wikidot.com/bard)
+
+Marmalade Lysiantha grew up comfortable but bored and decided to strike out on her own as an entertainer soon after reaching adulthood. She wanders the world performing.
+
+## Campaign Notes
